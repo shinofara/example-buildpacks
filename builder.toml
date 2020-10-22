@@ -1,0 +1,22 @@
+# Buildpacks to include in builder
+[[buildpacks]]
+uri = "buildpacks/python.cnb"
+
+[[buildpacks]]
+uri = "buildpacks/golang.cnb"
+
+# Order used for detection
+[[order]]
+  [[order.group]]
+  id = "buildpacks/python"
+  version = "0.0.1"
+
+  [[order.group]]
+  id = "buildpacks/golang"
+  version = "0.0.1"
+
+# Stack that will be used by the builder
+[stack]
+id = "shinofarastack"
+run-image = "run"
+build-image = "builder"

@@ -1,0 +1,26 @@
+FROM gcr.io/gcp-runtimes/ubuntu_18_0_4
+
+ARG cnb_uid=1000
+ARG cnb_gid=1000
+ARG stack_id="google"
+
+# Required by python/runtime.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  libexpat1 \
+  libffi6 \
+  libmpdec2 \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Required by dotnet/runtime.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  libicu60 \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+LABEL io.buildpacks.stack.id=${stack_id}
+
+RUN groupadd cnb --gid ${cnb_gid} && \
+  useradd --uid ${cnb_uid} --gid ${cnb_gid} -m -s /bin/bash cnb
+
+ENV CNB_USER_ID=${cnb_uid}
+ENV CNB_GROUP_ID=${cnb_gid}
+ENV CNB_STACK_ID=${stack_id}

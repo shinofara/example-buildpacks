@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "---> Detecting Golang Buildpack"
+
+if [ ! -f go.mod ]; then
+  exit 0
+fi
+
+echo "---> Golang Buildpack"

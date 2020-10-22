@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+echo "---> Building by golang Buildpack"
+
+# 1. GET ARGS
+layersdir=$1
+golanglayer="$layersdir"/golang
+mkdir -p $golanglayer
+
+# 3. MAKE RUBY AVAILABLE DURING LAUNCH
+echo -e 'launch = true' > "$golanglayer.toml"
+
+# 5. INSTALL BUNDLER
+echo "---> Installing go modules"
+go get
